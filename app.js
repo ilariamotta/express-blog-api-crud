@@ -10,6 +10,8 @@ app.get("/", (req, res) => {
     res.send("test")
 })
 
+
+
 app.use("/posts", postsRouter)
 
 app.listen(port, () => {
