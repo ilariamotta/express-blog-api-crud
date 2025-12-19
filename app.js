@@ -10,9 +10,11 @@ app.get("/", (req, res) => {
     res.send("test")
 })
 
-
+app.use(express.json())
 
 app.use("/posts", postsRouter)
+
+
 
 app.listen(port, () => {
     console.log("Il server è in ascolto sulla porta " + port)

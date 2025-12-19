@@ -36,8 +36,29 @@ function show(req, res) {
 
 
 function store(req, res) {
-    console.log("creo nuovo gioco");
-    res.send("Creo nuovo videogioco")
+    const dati = req.body;
+    console.log(dati);
+
+    if (dati.titolo === undefined || dati.titolo.length === 0) {
+        res.status(400);
+        return res.json({
+            error: "Errore",
+            message: "Il titolo è obbligatorio"
+        })
+    }
+
+    const nuovoId = posts[posts.length -1].id + 1;
+    const nuovoVideogioco = {
+        id: nuovoId,
+        titolo: dati.name,
+        contenuto: dati.contenuto,
+        immagine: dati.immagine,
+        tags: dati.tags
+    }
+
+    posts.push(nuovoVideogioco)
+    res.status(201)
+    res.json(nuovoVideogioco)
 }
 
 function update(req, res) {
