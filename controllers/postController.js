@@ -47,7 +47,7 @@ function store(req, res) {
         })
     }
 
-    const nuovoId = posts[posts.length -1].id + 1;
+    const nuovoId = posts[posts.length - 1].id + 1;
     const nuovoVideogioco = {
         id: nuovoId,
         titolo: dati.name,
@@ -62,9 +62,27 @@ function store(req, res) {
 }
 
 function update(req, res) {
-    console.log("modifico videogioco")
-    const id = req.params.id;
-    res.send("Aggiorno videogioco " + id)
+
+    const id = parseInt(req.params.id);
+
+
+
+    const videogioco = posts.find((videogioco) => videogioco.id === id)
+
+    if (videogioco === undefined) {
+        req.status(404)
+        return req.json({
+            error: "Not found",
+            message: "Videogioco non trovato"
+        })
+    }
+    const dati = req.body;
+    videogioco.titolo = dati.titolo;
+    videogioco.contenuto = dati.contenuto;
+    videogioco.immagine = dati.immagine;
+    videogioco.tags = dati.tags
+
+    res.json(videogioco)
 }
 
 function modify(req, res) {
